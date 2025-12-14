@@ -7,7 +7,7 @@ function App() {
   const [count, setCount] = useState(0);
   return (
     <>
-      <div className="border flex justify-center mt-7 bg-yellow-600 h-[10vh]    ">
+      <div className="border flex justify-center mt-7 bg-yellow-600 h-[10vh]">
         <a href="https://vite.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
         </a>
