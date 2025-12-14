@@ -9,4 +9,8 @@ export default defineConfig({
       },
     }),
   ],
+  server: {
+    port: 3000,   // Change port here
+    strictPort: true // Throws an error if 3000 is already in use
+  }
 })
