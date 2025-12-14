@@ -4,6 +4,9 @@ import IconButton from '@mui/material/IconButton';
 import KeyboardDoubleArrowLeftRoundedIcon from '@mui/icons-material/KeyboardDoubleArrowLeftRounded';
 import KeyboardDoubleArrowRightRoundedIcon from '@mui/icons-material/KeyboardDoubleArrowRightRounded';
 import { NavLink, useLocation } from 'react-router-dom';
+import DashboardRoundedIcon from '@mui/icons-material/DashboardRounded';
+import TaskAltRoundedIcon from '@mui/icons-material/TaskAltRounded';
+import InsertChartOutlinedRoundedIcon from '@mui/icons-material/InsertChartOutlinedRounded';
 
 const SIDEBAR_WIDTH = 250;
 const SIDEBAR_COLLAPSED_WIDTH = 80;
@@ -14,16 +17,46 @@ export default function SideBarApp() {
   const location = useLocation();
 
   const menuItems = [
-    { name: 'dashboard', label: 'Dashboard', path: '/' },
-    { name: 'tasks', label: 'Tasks', path: '/tasks' },
-    { name: 'analytics', label: 'Analytics', path: '/analytics' },
+    {
+      name: 'dashboard',
+      label: 'Dashboard',
+      path: '/',
+      icon: (
+        <DashboardRoundedIcon sx={{ width: 20, marginTop: -0.5, marginRight: 3, marginLeft: 1 }} />
+      ),
+    },
+    {
+      name: 'tasks',
+      label: 'Tasks',
+      path: '/tasks',
+      icon: (
+        <TaskAltRoundedIcon sx={{ width: 20, marginTop: -0.5, marginRight: 3, marginLeft: 1 }} />
+      ),
+    },
+    {
+      name: 'analytics',
+      label: 'Analytics',
+      path: '/analytics',
+      icon: (
+        <InsertChartOutlinedRoundedIcon
+          sx={{ width: 20, marginTop: -0.5, marginRight: 3, marginLeft: 1 }}
+        />
+      ),
+    },
   ];
 
   // Find active index based on current route
   const activeIndex = menuItems.findIndex((item) => item.path === location.pathname);
 
   return (
-    <div style={{ display: 'flex', height: '100vh', position: 'relative' }}>
+    <div
+      style={{
+        display: 'flex',
+        height: '100vh',
+        position: 'relative',
+        boxShadow: '2px 0 5px rgba(0,0,0,0.1)',
+      }}
+    >
       {/* Sidebar */}
       <Sidebar
         collapsed={collapsed}
@@ -46,6 +79,7 @@ export default function SideBarApp() {
             transform: `translateY(${activeIndex * ITEM_HEIGHT}px)`,
             transition: 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
             zIndex: 0,
+            paddingLeft: '20px',
           }}
         />
 
@@ -74,6 +108,7 @@ export default function SideBarApp() {
           {menuItems.map((item) => (
             <MenuItem
               key={item.name}
+              style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
               component={
                 <NavLink
                   to={item.path}
@@ -84,6 +119,7 @@ export default function SideBarApp() {
                 />
               }
             >
+              {item.icon}
               {item.label}
             </MenuItem>
           ))}

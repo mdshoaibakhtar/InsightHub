@@ -5,7 +5,7 @@ import SideBar from './shared/SideBar';
 import Dashboard from './features/dashboard/Dashboard';
 import Tasks from './features/tasks/Tasks';
 import Analytics from './features/analytics/Analytics';
-
+import './styles/style.css'
 export default function App() {
   return (
     <Router>
