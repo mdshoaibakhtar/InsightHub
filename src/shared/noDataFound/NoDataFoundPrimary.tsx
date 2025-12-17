@@ -1,4 +1,6 @@
-import { Box, Grid, Typography } from "@mui/material";
+import { faBan } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Box, Typography } from "@mui/material";
 
 interface INoDataFoundProps {
   title?: string;
@@ -6,17 +8,12 @@ interface INoDataFoundProps {
 }
 
 const NoDataFound = ({ title = 'No Data Found', message = '' }: INoDataFoundProps) => (
-  <Box className='min-h-[400px] w-full'>
-    <Grid direction={'row'} className='items-center max-w-md px-6'>
-      {/* <Icon
-        as={SlashIcon}
-        className={
-          'text-typography-400 mb-[0.5rem] transition-all h-16 w-16 duration-500 ease-in-out'
-        }
-      /> */}
-      <Typography className='text-md font-semibold text-gray-500 text-center'>{title}</Typography>
-      <Typography className='text-sm text-gray-300 text-center'>{message}</Typography>
-    </Grid>
+  <Box className='min-h-[400px] w-full flex items-center justify-center'>
+      <Box className='flex gap-2 justify-center items-center'>
+        <FontAwesomeIcon icon={faBan} />
+        <Typography className='text-md font-semibold text-gray-500 text-center'>{title}</Typography>
+        <Typography className='text-sm text-gray-300 text-center'>{message}</Typography>
+      </Box>
   </Box>
 );
 

@@ -10,13 +10,13 @@ import NavBar from './shared/NavBar';
 export default function App() {
   return (
     <Router>
-      <Box style={{ display: 'flex', height: '100vh' }}>
+      <Box style={{ display: 'flex', height: '100vh'}}>
         <SideBar />
         <main style={{ flex: 1, gap: '10px', display: 'flex', flexDirection: 'column' }}>
-            <NavBar />
+          <NavBar />
           <Box sx={{padding:'12px 16px'}}>
             <Routes>
-              <Route path="/" element={<Dashboard />} />
+              <Route path="/" element={<Dashboard agentAPIList={[]}/>} />
               <Route path="/tasks" element={<Tasks />} />
               <Route path="/analytics" element={<Analytics />} />
               <Route path="*" element={<NotFound />} />

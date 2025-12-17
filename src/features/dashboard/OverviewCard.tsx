@@ -3,7 +3,7 @@ import type { IOverViewCardInterface } from '../../interfaces/DashboardInterface
 import { Box, Typography } from '@mui/material';
 
 const OverviewCard = ({ icon, title, value, isPercentage }: IOverViewCardInterface) => (
-  <Box className='flex w-full items-center p-5'>
+  <Box className='flex w-full items-center p-4 flex-col'>
     <Box className='flex w-full flex-row justify-between items-center'>
       <Typography className='text-[14.5px] text-slate-700'>{title}</Typography>
       <Box>

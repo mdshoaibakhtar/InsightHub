@@ -19,6 +19,7 @@ import BarCharts from '../../shared/charts/BarCharts';
 import OverviewCard from './OverviewCard';
 import NoDataFoundSecondary from '../../shared/noDataFound/NoDataFoundSecondary';
 import PieChart from '../../shared/charts/PieChart';
+import { pieChartData, reviewHistoryByQueueGraph, reviewHistoryByQueueGraphForAgent } from '../../mockdata/Dashboard';
 
 export interface IRTManagerInterfaceProps {
   agentAPIList: IAgentsTable[];
@@ -113,147 +114,135 @@ const AdminDashboard = ({ agentAPIList }: IRTManagerInterfaceProps) => {
   }
 
   return (
-    <Box style={{ flex: 1 }}
-    >
-        <Box className='items-center justify-between gap-4'>
-          {/* <Announcement /> */}
-          <Box className='flex flex-row bg-white shadow-xl rounded-xl py-4 px-4 w-full h-[22vh] justify-between gap-10'>
-            <AdminDashboardHeader />
-          </Box>
-          <Box className='flex flex-row bg-white shadow-xl rounded-xl p-4 px-8 w-full h-[35vh] justify-between gap-10'>
-            <BarCharts
-              title={'Total Monthly Applications'}
-              data={handleGraphColors(
-                ensureChartData(dashboardData?.reviewHistoryByQueueGraph),
-                false
-              )}
-              datasets={[]}
-              labels={[]}
-            />
-            <BarCharts
-              title='Monthly Approved/rejected Applications'
-              data={handleGraphColors(ensureChartData(dashboardData?.activeQueueGraph), true)}
-              datasets={[]}
-              labels={[]}
-            />
-          </Box>
-          <Box className='flex flex-col bg-white shadow-xl rounded-xl p-4 w-full h-[26vh] gap-3'>
-            <Box className='w-full flex flex-row justify-between px-4'>
-              <Box>
-                <Typography className='text-[#0228A0] text-xl'>Milestone Review SLA Performance</Typography>
-                <Divider className='my-0.5 h-0.5 w-[60%] rounded bg-[#0228A0]' />
+      <Box className='items-center justify-between flex flex-col gap-4 h-full w-[100%]'>
+        <Box className='flex flex-row bg-white shadow-xl rounded-xl py-4 px-4 w-full justify-between gap-2 border'>
+          <AdminDashboardHeader />
+        </Box>
+        <Box className='flex flex-row bg-white shadow-xl rounded-xl w-[100%] justify-between gap-10 border p-4'>
+          <BarCharts
+            title={'Total Monthly Applications'}
+            data={reviewHistoryByQueueGraph}
+            datasets={[]}
+            labels={[]}
+          />
+          <BarCharts
+            title='Monthly Approved/rejected Applications'
+            data={reviewHistoryByQueueGraphForAgent}
+            datasets={[]}
+            labels={[]}
+          />
+        </Box>
+        <Box className='flex flex-col bg-white shadow-xl rounded-xl p-2 w-full gap-2 border'>
+          <Box className='w-full flex flex-col justify-between p-4'>
+              <Typography className='text-[#0228A0] text-xl'>Milestone Review SLA Performance</Typography>
+              <Divider className='my-0.5 h-0.5 w-[10%] rounded bg-[#0228A0]' />
+            </Box>
+          <Box className='flex flex-row gap-4 w-full'>
+            <Box className='flex flex-col w-[80%]'>
+              <Box className='w-full flex flex-row'>
+                <OverviewCard
+                  title={'Total Applications'}
+                  icon={faClipboardCheck}
+                  value={
+                    dashboardData?.slaPerformance?.totalApplications
+                      ? dashboardData?.slaPerformance?.totalApplications
+                      : 0
+                  }
+                />
+                <Divider className='m-0.5' orientation='vertical' />
+                <OverviewCard
+                  title={'Total Reviews'}
+                  icon={faChartLine}
+                  value={
+                    dashboardData?.slaPerformance?.totalReviews
+                      ? dashboardData?.slaPerformance?.totalReviews
+                      : 0
+                  }
+                />
+                <Divider className='m-0.5' orientation='vertical' />
+                <OverviewCard
+                  title={'SLA Turnaround Rate'}
+                  icon={faClock}
+                  value={
+                    dashboardData?.slaPerformance?.slaTurnaround
+                      ? dashboardData?.slaPerformance?.slaTurnaround
+                      : 0
+                  }
+                  isPercentage
+                />
+                <Divider className='m-0.5' orientation='vertical' />
+                <OverviewCard
+                  title={'Median Accuracy Score'}
+                  icon={faAward}
+                  value={
+                    dashboardData?.slaPerformance?.medianAccuracyScore
+                      ? dashboardData?.slaPerformance?.medianAccuracyScore
+                      : 0
+                  }
+                  isPercentage
+                />
+                <Divider className='m-0.5' orientation='vertical' />
+              </Box>
+              <Box className='w-full flex flex-row'>
+                <OverviewCard
+                  title={'T30D Applications'}
+                  icon={faCalendarDays}
+                  value={
+                    dashboardData?.slaPerformance?.last30DaysApplications
+                      ? dashboardData?.slaPerformance?.last30DaysApplications
+                      : 0
+                  }
+                />
+                <Divider className='m-0.5' orientation='vertical' />
+                <OverviewCard
+                  title={'T30D Reviews'}
+                  icon={faStopwatch}
+                  value={
+                    dashboardData?.slaPerformance?.last30DaysReviews
+                      ? dashboardData?.slaPerformance?.last30DaysReviews
+                      : 0
+                  }
+                />
+                <Divider className='m-0.5' orientation='vertical' />
+                <OverviewCard
+                  title={'T30D SLA Turnaround'}
+                  icon={faTurnUp}
+                  value={
+                    dashboardData?.slaPerformance?.last30daysSlaTurnaround
+                      ? dashboardData?.slaPerformance?.last30daysSlaTurnaround
+                      : 0
+                  }
+                  isPercentage
+                />
+                <Divider className='m-0.5' orientation='vertical' />
+                <OverviewCard
+                  title={'T30D Median Accuracy'}
+                  icon={faTrophy}
+                  value={
+                    dashboardData?.slaPerformance?.last30daysMedianAccuracyScore
+                      ? dashboardData?.slaPerformance?.last30daysMedianAccuracyScore
+                      : 0
+                  }
+                  isPercentage
+                />
+                <Divider className='m-0.5' orientation='vertical' />
               </Box>
             </Box>
-            <Box className='flex flex-row gap-4'>
-              <Box className='w-[75vw] flex flex-col'>
-                <Box className='w-full flex flex-row'>
-                  <OverviewCard
-                    title={'Total Applications'}
-                    icon={faClipboardCheck}
-                    value={
-                      dashboardData?.slaPerformance?.totalApplications
-                        ? dashboardData?.slaPerformance?.totalApplications
-                        : 0
-                    }
-                  />
-                  <Divider className='m-0.5' orientation='vertical' />
-                  <OverviewCard
-                    title={'Total Reviews'}
-                    icon={faChartLine}
-                    value={
-                      dashboardData?.slaPerformance?.totalReviews
-                        ? dashboardData?.slaPerformance?.totalReviews
-                        : 0
-                    }
-                  />
-                  <Divider className='m-0.5' orientation='vertical' />
-                  <OverviewCard
-                    title={'SLA Turnaround Rate'}
-                    icon={faClock}
-                    value={
-                      dashboardData?.slaPerformance?.slaTurnaround
-                        ? dashboardData?.slaPerformance?.slaTurnaround
-                        : 0
-                    }
-                    isPercentage
-                  />
-                  <Divider className='m-0.5' orientation='vertical' />
-                  <OverviewCard
-                    title={'Median Accuracy Score'}
-                    icon={faAward}
-                    value={
-                      dashboardData?.slaPerformance?.medianAccuracyScore
-                        ? dashboardData?.slaPerformance?.medianAccuracyScore
-                        : 0
-                    }
-                    isPercentage
-                  />
-                  <Divider className='m-0.5' orientation='vertical' />
+            <Box className='h-fit w-[20%]'>
+              {pieChartData ? (
+                <PieChart
+                  data={pieChartData}
+                  size={16}
+                />
+              ) : (
+                <Box className='h-full justify-center'>
+                  <NoDataFoundSecondary />
                 </Box>
-                <Box className='w-full flex flex-row'>
-                  <OverviewCard
-                    title={'T30D Applications'}
-                    icon={faCalendarDays}
-                    value={
-                      dashboardData?.slaPerformance?.last30DaysApplications
-                        ? dashboardData?.slaPerformance?.last30DaysApplications
-                        : 0
-                    }
-                  />
-                  <Divider className='m-0.5' orientation='vertical' />
-                  <OverviewCard
-                    title={'T30D Reviews'}
-                    icon={faStopwatch}
-                    value={
-                      dashboardData?.slaPerformance?.last30DaysReviews
-                        ? dashboardData?.slaPerformance?.last30DaysReviews
-                        : 0
-                    }
-                  />
-                  <Divider className='m-0.5' orientation='vertical' />
-                  <OverviewCard
-                    title={'T30D SLA Turnaround Rate'}
-                    icon={faTurnUp}
-                    value={
-                      dashboardData?.slaPerformance?.last30daysSlaTurnaround
-                        ? dashboardData?.slaPerformance?.last30daysSlaTurnaround
-                        : 0
-                    }
-                    isPercentage
-                  />
-                  <Divider className='m-0.5' orientation='vertical' />
-                  <OverviewCard
-                    title={'T30D Median Accuracy Score'}
-                    icon={faTrophy}
-                    value={
-                      dashboardData?.slaPerformance?.last30daysMedianAccuracyScore
-                        ? dashboardData?.slaPerformance?.last30daysMedianAccuracyScore
-                        : 0
-                    }
-                    isPercentage
-                  />
-                  <Divider className='m-0.5' orientation='vertical' />
-                </Box>
-              </Box>
-              <Box className='w-[20vw]'>
-                {dashboardData?.totalTodos || dashboardData?.slaPerformance?.totalReviews ? (
-                  <PieChart
-                    data={getPichartData(
-                      dashboardData?.totalTodos,
-                      dashboardData?.slaPerformance?.totalReviews
-                    )}
-                    size={20}
-                  />
-                ) : (
-                  <Box className='h-full justify-center'>
-                    <NoDataFoundSecondary />
-                  </Box>
-                )}
-              </Box>
+              )}
             </Box>
           </Box>
         </Box>
-    </Box>
+      </Box>
   );
 };
 
