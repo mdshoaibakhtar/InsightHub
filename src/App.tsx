@@ -10,11 +10,11 @@ import NavBar from './shared/NavBar';
 export default function App() {
   return (
     <Router>
-      <Box style={{ display: 'flex', height: '100vh'}}>
+      <Box className='flex h-[100vh] w-full overflow-hidden'>
         <SideBar />
-        <main style={{ flex: 1, gap: '10px', display: 'flex', flexDirection: 'column' }}>
+          <main className='flex flex-col w-full overflow-hidden'>
           <NavBar />
-          <Box sx={{padding:'12px 16px'}}>
+            <Box className='overflow-y-scroll p-4'>
             <Routes>
               <Route path="/" element={<Dashboard agentAPIList={[]}/>} />
               <Route path="/tasks" element={<Tasks />} />

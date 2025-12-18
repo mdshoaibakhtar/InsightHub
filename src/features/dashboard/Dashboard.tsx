@@ -118,7 +118,7 @@ const AdminDashboard = ({ agentAPIList }: IRTManagerInterfaceProps) => {
         <Box className='flex flex-row bg-white shadow-xl rounded-xl py-4 px-4 w-full justify-between gap-2 border'>
           <AdminDashboardHeader />
         </Box>
-        <Box className='flex flex-row bg-white shadow-xl rounded-xl w-[100%] justify-between gap-10 border p-4'>
+        <Box className='flex flex-row bg-white shadow-xl rounded-xl w-[100%] justify-between gap-10 border p-4 overflow-hidden'>
           <BarCharts
             title={'Total Monthly Applications'}
             data={reviewHistoryByQueueGraph}

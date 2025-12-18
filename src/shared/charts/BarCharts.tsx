@@ -37,11 +37,11 @@ const BarCharts = ({ title, data }: IChartProps) => {
   const hasData = data?.labels?.length > 0 && data?.datasets?.length > 0;
 
   return (
-    <Box className='flex w-[100%] flex-col'>
+    <Box className='flex flex-col w-[100%] h-[100%] overflow-hidden'>
       <Typography className='text-lg font-bold text-[#0228A0]'>{title}</Typography>
       <Divider className='my-0.5 h-0.5 w-[25%] rounded bg-[#0228A0]' />
       {hasData ? (
-        <Chart type='bar' data={data} options={options} />
+        <Chart type='bar' data={data} options={options} width={800} height={300} className='w-[100%] h-[100%] overflow-hidden'/>
       ) : (
         <Box className='h-full justify-center w-full'>
           <NoDataFound />
