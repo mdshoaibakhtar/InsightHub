@@ -10,9 +10,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState } from 'react';
 import { Box, Divider, Typography } from '@mui/material';
-import { ensureChartData, handleGraphColors } from '../../utils/utils/styleUtils';
 import type { IAgentsTable } from '../../interfaces/agents';
-import type { IDashboardProps, IDropdownOption } from '../../interfaces/DashboardInterface';
 import RTManagerDashboardSkeleton from '../../shared/skeleton/rtManagerDashboard/RTManagerDashboardSkeleton';
 import AdminDashboardHeader from './AdminDashboardHeader';
 import BarCharts from '../../shared/charts/BarCharts';
@@ -22,35 +20,11 @@ import PieChart from '../../shared/charts/PieChart';
 import { pieChartData, reviewHistoryByQueueGraph, reviewHistoryByQueueGraphForAgent } from '../../mockdata/Dashboard';
 
 export interface IRTManagerInterfaceProps {
-  agentAPIList: IAgentsTable[];
+  agentAPIList?: IAgentsTable[];
 }
 // Admin dashboard
-const AdminDashboard = ({ agentAPIList }: IRTManagerInterfaceProps) => {
+const AdminDashboard = () => {
   const [dashboardSkeleton, setDashboardSkeleton] = useState(true);
-  const [dashboardData, setDashboardData] = useState<IDashboardProps | undefined>();
-  const [leadingAgents, setLeadingAgents] = useState<string[]>([]);
-  // Fetching initial list of agents under that orgs
-  const prepareAgentListForPicker = () => {
-    const arr: IDropdownOption[] = [];
-    agentAPIList.map((each: IAgentsTable) => {
-      arr.push({
-        label: each['name'],
-        id: each['id'],
-      });
-    });
-  };
-
-  const updateListOfLeadingAgents = (listOfLeadingAgentSubs: string[]) => {
-    const arr: string[] = [];
-    agentAPIList.map((each: IAgentsTable) => {
-      listOfLeadingAgentSubs.map((eachSubs: string) => {
-        if (eachSubs === each['id']) {
-          arr.push(each?.['name']);
-        }
-      });
-    });
-    setLeadingAgents(arr);
-  };
   // API Call to fetch the dashboard data : /internal/dashboard
   const fetchDashboardData = async () => {
     setDashboardSkeleton(true);
@@ -72,42 +46,6 @@ const AdminDashboard = ({ agentAPIList }: IRTManagerInterfaceProps) => {
   useEffect(() => {
     fetchDashboardData();
   }, []);
-
-  // useEffect(() => {
-  //   prepareAgentListForPicker();
-  //   if (dashboardData?.leadingAgents && agentAPIList) {
-  //     updateListOfLeadingAgents(dashboardData?.leadingAgents);
-  //   }
-  // }, [agentAPIList, dashboardData?.leadingAgents]);
-
-  const getPichartData = (pendingReviews?: number | null, completedReviews?: number | null) => {
-    const data: {
-      label: string;
-      value: number;
-      color: string;
-      cutout: string;
-    }[] = [];
-
-    if (pendingReviews && pendingReviews > 0) {
-      data.push({
-        label: 'Pending Reviews',
-        value: pendingReviews,
-        color: '#031F72',
-        cutout: '',
-      });
-    }
-
-    if (completedReviews && completedReviews > 0) {
-      data.push({
-        label: 'Completed Reviews',
-        value: completedReviews,
-        color: '#DE2427',
-        cutout: '',
-      });
-    }
-
-    return data;
-  };
 
   if (dashboardSkeleton) {
     return <RTManagerDashboardSkeleton />;
@@ -143,42 +81,26 @@ const AdminDashboard = ({ agentAPIList }: IRTManagerInterfaceProps) => {
                 <OverviewCard
                   title={'Total Applications'}
                   icon={faClipboardCheck}
-                  value={
-                    dashboardData?.slaPerformance?.totalApplications
-                      ? dashboardData?.slaPerformance?.totalApplications
-                      : 0
-                  }
+                  value={235}
                 />
                 <Divider className='m-0.5' orientation='vertical' />
                 <OverviewCard
                   title={'Total Reviews'}
                   icon={faChartLine}
-                  value={
-                    dashboardData?.slaPerformance?.totalReviews
-                      ? dashboardData?.slaPerformance?.totalReviews
-                      : 0
-                  }
+                  value={634}
                 />
                 <Divider className='m-0.5' orientation='vertical' />
                 <OverviewCard
                   title={'SLA Turnaround Rate'}
                   icon={faClock}
-                  value={
-                    dashboardData?.slaPerformance?.slaTurnaround
-                      ? dashboardData?.slaPerformance?.slaTurnaround
-                      : 0
-                  }
+                  value={53}
                   isPercentage
                 />
                 <Divider className='m-0.5' orientation='vertical' />
                 <OverviewCard
                   title={'Median Accuracy Score'}
                   icon={faAward}
-                  value={
-                    dashboardData?.slaPerformance?.medianAccuracyScore
-                      ? dashboardData?.slaPerformance?.medianAccuracyScore
-                      : 0
-                  }
+                  value={33}
                   isPercentage
                 />
                 <Divider className='m-0.5' orientation='vertical' />
@@ -187,42 +109,26 @@ const AdminDashboard = ({ agentAPIList }: IRTManagerInterfaceProps) => {
                 <OverviewCard
                   title={'T30D Applications'}
                   icon={faCalendarDays}
-                  value={
-                    dashboardData?.slaPerformance?.last30DaysApplications
-                      ? dashboardData?.slaPerformance?.last30DaysApplications
-                      : 0
-                  }
+                  value={54}
                 />
                 <Divider className='m-0.5' orientation='vertical' />
                 <OverviewCard
                   title={'T30D Reviews'}
                   icon={faStopwatch}
-                  value={
-                    dashboardData?.slaPerformance?.last30DaysReviews
-                      ? dashboardData?.slaPerformance?.last30DaysReviews
-                      : 0
-                  }
+                  value={787}
                 />
                 <Divider className='m-0.5' orientation='vertical' />
                 <OverviewCard
                   title={'T30D SLA Turnaround'}
                   icon={faTurnUp}
-                  value={
-                    dashboardData?.slaPerformance?.last30daysSlaTurnaround
-                      ? dashboardData?.slaPerformance?.last30daysSlaTurnaround
-                      : 0
-                  }
+                  value={78}
                   isPercentage
                 />
                 <Divider className='m-0.5' orientation='vertical' />
                 <OverviewCard
                   title={'T30D Median Accuracy'}
                   icon={faTrophy}
-                  value={
-                    dashboardData?.slaPerformance?.last30daysMedianAccuracyScore
-                      ? dashboardData?.slaPerformance?.last30daysMedianAccuracyScore
-                      : 0
-                  }
+                  value={27}
                   isPercentage
                 />
                 <Divider className='m-0.5' orientation='vertical' />

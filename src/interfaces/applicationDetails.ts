@@ -1,5 +1,3 @@
-import { IBadgeStatusType } from '@/constants/badgeConstants';
-
 export interface IApplicationDetails {
   installation_state: string;
   application_type: string;
@@ -199,7 +197,7 @@ export interface IRejectModalProps {
 }
 
 export interface IStatusBadgeProps {
-  status: IBadgeStatusType;
+  status: never;
   size?: 'sm' | 'md' | 'lg';
   variant?: 'solid' | 'outline';
 }

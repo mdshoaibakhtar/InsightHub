@@ -1,5 +1,3 @@
-import { LucideIcon } from 'lucide-react-native';
-
 export interface IAgentItem {
   id: string;
   name: string;
@@ -40,7 +38,7 @@ export interface IFilteredAgentList {
 export interface IMenuItem {
   key: string;
   label: string;
-  icon: LucideIcon;
+  icon: never ;
   onPress: () => void;
 }
 

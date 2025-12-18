@@ -16,7 +16,7 @@ export default function App() {
           <NavBar />
             <Box className='overflow-y-scroll p-4'>
             <Routes>
-              <Route path="/" element={<Dashboard agentAPIList={[]}/>} />
+              <Route path="/" element={<Dashboard />} />
               <Route path="/tasks" element={<Tasks />} />
               <Route path="/analytics" element={<Analytics />} />
               <Route path="*" element={<NotFound />} />

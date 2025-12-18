@@ -1,7 +1,5 @@
-import { Box } from '@/components/ui/box';
-import { HStack } from '@/components/ui/hstack';
-import { SkeletonText } from '@/components/ui/skeleton';
-import { VStack } from '@/components/ui/vstack';
+/* eslint-disable react-hooks/static-components */
+import { Box, Grid, Skeleton } from "@mui/material";
 
 const MetricsCardsSkeleton = () => {
   const MetricSkeletonCard = ({ valueWidth = 'w-16' }) => (

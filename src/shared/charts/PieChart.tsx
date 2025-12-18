@@ -64,7 +64,7 @@ const PieChart = ({ data, title = '', size = 20 }: IPieChartProps) => {
 
   return (
     <Box className='' style={{ width: size * 16, height: size * 10 }}>
-      {/* <Typography className='text-md font-bold ml-4'>{title}</Typography> */}
+      <Typography className='text-md font-bold'>{title}</Typography>
       <Doughnut data={finalData} options={options} width={100} height={100} />
     </Box>
   );

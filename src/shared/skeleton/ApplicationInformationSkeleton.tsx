@@ -1,7 +1,4 @@
-import { Box } from '@/components/ui/box';
-import { HStack } from '@/components/ui/hstack';
-import { SkeletonText } from '@/components/ui/skeleton';
-import { VStack } from '@/components/ui/vstack';
+import { Box, Grid, Skeleton } from "@mui/material";
 
 const ApplicationInformationSkeleton = () => (
   <Grid direction={'column'} className='px-6 py-2 gap-4'>

@@ -1,6 +1,5 @@
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
-
-import { IChartData } from './Chart';
+import type { IconProp } from "@fortawesome/fontawesome-svg-core";
+import type { IChartData } from "./Chart";
 
 export interface IOverViewCardInterface {
   icon: IconProp;

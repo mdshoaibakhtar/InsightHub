@@ -1,10 +1,8 @@
-import { Box } from '@/components/ui/box';
-import { HStack } from '@/components/ui/hstack';
-import { SkeletonText } from '@/components/ui/skeleton';
-import { VStack } from '@/components/ui/vstack';
-import MetricsCardsSkeleton from '@/screens/session/skeleton/dashboard/metricsCard';
 
+
+import { Box, Grid, Skeleton } from '@mui/material';
 import BarGraphSkeleton from './dashboard/barGraphSkeleton';
+import MetricsCardsSkeleton from './dashboard/metricsCard';
 
 const AgentDashboardSkeleton = () => (
   <Grid direction={'column'} className='h-fit gap-2 p-4'>
