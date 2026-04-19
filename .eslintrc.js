@@ -27,6 +27,13 @@ module.exports = {
         printWidth: 100,
       },
     ],
+    /** Force arrow functions */
+    'func-style': ['error', 'expression'], // no `function foo() {}`
+    'prefer-arrow-callback': ['error'],
+
+    /** Optional but recommended */
+    'arrow-body-style': ['error', 'as-needed'],
+    'arrow-parens': ['error', 'always'],
 
     /** Quotes */
     quotes: ['error', 'single', { avoidEscape: true }],
