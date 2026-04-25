@@ -9,7 +9,6 @@ import {
 } from "@/components/ui/collapsible"
 import {
   SidebarGroup,
-  SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
@@ -34,9 +33,11 @@ export function NavMain({
 }) {
   return (
     <SidebarGroup>
-      <SidebarGroupLabel>Platform</SidebarGroupLabel>
       <SidebarMenu>
-        {items.map((item) => (
+        {items.map((item) => 
+        {
+          const hasChildrens = item.items && item.items?.length > 0;
+          return(
           <Collapsible
             key={item.title}
             asChild
@@ -48,10 +49,10 @@ export function NavMain({
                 <SidebarMenuButton tooltip={item.title}>
                   {item.icon && <item.icon />}
                   <span>{item.title}</span>
-                  <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+                  {hasChildrens && <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />}
                 </SidebarMenuButton>
               </CollapsibleTrigger>
-              <CollapsibleContent>
+              {hasChildrens && (<CollapsibleContent>
                 <SidebarMenuSub>
                   {item.items?.map((subItem) => (
                     <SidebarMenuSubItem key={subItem.title}>
@@ -63,10 +64,11 @@ export function NavMain({
                     </SidebarMenuSubItem>
                   ))}
                 </SidebarMenuSub>
-              </CollapsibleContent>
+              </CollapsibleContent>)}
             </SidebarMenuItem>
           </Collapsible>
-        ))}
+        )
+        })}
       </SidebarMenu>
     </SidebarGroup>
   )

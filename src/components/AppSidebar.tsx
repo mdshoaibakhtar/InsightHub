@@ -7,7 +7,6 @@ import {
   Bot,
   Command,
   Frame,
-  GalleryVerticalEnd,
   Map,
   PieChart,
   Settings2,
@@ -25,6 +24,7 @@ import { TeamSwitcher } from "./TeamSwitcher"
 import { NavMain } from "./NavMain"
 import { NavUser } from "./NavUser"
 import { NavProjects } from "./NavProjects"
+import ownIcon from "../assets/insighthub.png"
 
 // This is sample data.
 const data = {
@@ -36,7 +36,7 @@ const data = {
   teams: [
     {
       name: "Acme Inc",
-      logo: GalleryVerticalEnd,
+      logo: ownIcon,
       plan: "Enterprise",
     },
     {
@@ -51,6 +51,12 @@ const data = {
     },
   ],
   navMain: [
+    {
+      title: "Home",
+      url: "#",
+      icon: SquareTerminal,
+      isActive: false,
+    },
     {
       title: "Playground",
       url: "#",
@@ -158,11 +164,11 @@ const data = {
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
-    <Sidebar collapsible="offcanvas" {...props}>
-      <SidebarHeader className="min-h-16">
+    <Sidebar collapsible="icon" {...props} variant="floating">
+      <SidebarHeader className="min-h-16 flex justify-center">
         <TeamSwitcher teams={data.teams} />
       </SidebarHeader>
-      <SidebarContent>
+      <SidebarContent className="">
         <NavMain items={data.navMain} />
         <NavProjects projects={data.projects} />
       </SidebarContent>

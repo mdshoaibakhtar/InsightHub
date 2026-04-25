@@ -4,39 +4,27 @@ import {
   SidebarProvider,
 } from "@/components/ui/sidebar"
 
-import data from "./data.json"
 import { AppSidebar } from "./components/AppSidebar"
 import { SiteHeader } from "./components/SiteHeader"
-import { SectionCards } from "./components/SectionCards"
-import { ChartAreaInteractive } from "./components/ChartAreaInteractive"
-import { DataTable } from "./components/DataTable"
 import { TooltipProvider } from "./components/ui/tooltip"
+import Home from "./components/screens/Home"
 
 export default function Page() {
-  return (
-    <TooltipProvider>
-    <SidebarProvider
-      style={
-        {
+  const sidebarStyle = {
           "--sidebar-width": "calc(var(--spacing) * 72)",
           "--header-height": "calc(var(--spacing) * 12)",
         } as React.CSSProperties
-      }
-    >
+
+  return (
+    <TooltipProvider>
+    <SidebarProvider style={sidebarStyle}>
       <AppSidebar variant="inset" />
+      {/* CONTENT AREA */}
       <SidebarInset>
+        {/* HEADER */}
         <SiteHeader />
-        <div className="flex flex-1 flex-col">
-          <div className="@container/main flex flex-1 flex-col gap-2">
-            <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
-              <SectionCards />
-              <div className="px-4 lg:px-6">
-                <ChartAreaInteractive />
-              </div>
-              <DataTable data={data} />
-            </div>
-          </div>
-        </div>
+        {/* DYNAMIC PAGE RENDERING */}
+        <Home/>
       </SidebarInset>
     </SidebarProvider>
     </TooltipProvider>
