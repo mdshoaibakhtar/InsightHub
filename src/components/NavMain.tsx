@@ -15,7 +15,15 @@ import {
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
+  useSidebar,
 } from "@/components/ui/sidebar"
+
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 
 export function NavMain({
   items,
@@ -31,14 +39,42 @@ export function NavMain({
     }[]
   }[]
 }) {
+  const {state, isMobile} = useSidebar();
   return (
     <SidebarGroup>
       <SidebarMenu>
-        {items.map((item) => 
+        {items.map((item, index) => 
         {
           const hasChildrens = item.items && item.items?.length > 0;
+          const flyout = state === 'collapsed' && hasChildrens;
           return(
-          <Collapsible
+          flyout ? (<DropdownMenu key={index}>
+          <DropdownMenuTrigger asChild className="p-1">
+            <SidebarMenuButton
+              size="lg"
+              className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+            >
+              <div className="flex aspect-square size-8 items-center justify-center rounded-lg">
+                {item.icon && <item.icon />}
+              </div>
+            </SidebarMenuButton>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent
+            className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg bg-accent-foreground border border-gray-200 p-2"
+            align="start"
+            side={isMobile ? "bottom" : "right"}
+            sideOffset={4}
+          >
+            {item.items && item.items.map((subItem, index) => (
+              <DropdownMenuItem
+                key={index}
+                className="gap-2 p-2 mx-2 text-accent cursor-pointer hover:bg-foreground"
+              >
+                {subItem.title}
+              </DropdownMenuItem>
+            ))}
+          </DropdownMenuContent>
+        </DropdownMenu>) : (<Collapsible
             key={item.title}
             asChild
             defaultOpen={item.isActive}
@@ -54,8 +90,8 @@ export function NavMain({
               </CollapsibleTrigger>
               {hasChildrens && (<CollapsibleContent>
                 <SidebarMenuSub>
-                  {item.items?.map((subItem) => (
-                    <SidebarMenuSubItem key={subItem.title}>
+                  {item.items?.map((subItem, index) => (
+                    <SidebarMenuSubItem key={index}>
                       <SidebarMenuSubButton asChild>
                         <a href={subItem.url}>
                           <span>{subItem.title}</span>
@@ -66,7 +102,7 @@ export function NavMain({
                 </SidebarMenuSub>
               </CollapsibleContent>)}
             </SidebarMenuItem>
-          </Collapsible>
+          </Collapsible>)
         )
         })}
       </SidebarMenu>

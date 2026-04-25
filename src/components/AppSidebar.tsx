@@ -7,6 +7,7 @@ import {
   Bot,
   Command,
   Frame,
+  LayoutDashboard,
   Map,
   PieChart,
   Settings2,
@@ -52,9 +53,9 @@ const data = {
   ],
   navMain: [
     {
-      title: "Home",
+      title: "Dashboard",
       url: "#",
-      icon: SquareTerminal,
+      icon: LayoutDashboard,
       isActive: false,
     },
     {
